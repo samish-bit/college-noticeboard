@@ -1,10 +1,11 @@
+import os
 from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import db, User, Post, Upvote
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'dev-secret-change-later'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-change-later')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///noticeboard.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -130,7 +131,8 @@ def upvote_post(id):
     return jsonify({'message': 'upvoted', 'upvotes': len(post.upvotes)})
 
 
+with app.app_context():
+    db.create_all()
+
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
