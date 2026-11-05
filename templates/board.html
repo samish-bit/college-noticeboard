@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Post form -->
+<div class="box post-form">
+  <h3>Post a Notice</h3>
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" id="title" placeholder="e.g. Study group for DBMS exam"/>
+  </div>
+  <div class="form-group">
+    <label>Category</label>
+    <select id="category">
+      <option>General</option>
+      <option>Exam</option>
+      <option>Event</option>
+      <option>Assignment</option>
+      <option>Lost & Found</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Body</label>
+    <textarea id="body" rows="3" placeholder="Details..."></textarea>
+  </div>
+  <button class="btn btn-primary" onclick="createPost()">Post Notice</button>
+</div>
+
+<!-- Filter -->
+<div class="filter-row">
+  <span>Filter:</span>
+  <button class="filter-btn active" onclick="filterPosts('all', this)">All</button>
+  <button class="filter-btn" onclick="filterPosts('General', this)">General</button>
+  <button class="filter-btn" onclick="filterPosts('Exam', this)">Exam</button>
+  <button class="filter-btn" onclick="filterPosts('Event', this)">Event</button>
+  <button class="filter-btn" onclick="filterPosts('Assignment', this)">Assignment</button>
+  <button class="filter-btn" onclick="filterPosts('Lost & Found', this)">Lost & Found</button>
+</div>
+
+<!-- Posts -->
+<div id="posts-container">
+  <p class="empty-msg" id="loading">Loading notices...</p>
+</div>
+
+{% endblock %}
